@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function startLiveFluctuation() {
       setInterval(() => {
-        // Randomly increment by +1 to +3 traders coming online
+        // Randomly increment by +1 to +3 traders coming online every 2 seconds
         const increment = Math.floor(Math.random() * 3) + 1;
         currentCount += increment;
         traderCountEl.textContent = currentCount.toLocaleString();
@@ -72,8 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
         traderCountEl.classList.add('count-up-flash');
         setTimeout(() => {
           traderCountEl.classList.remove('count-up-flash');
-        }, 600);
-      }, Math.floor(Math.random() * 3000) + 3500); // every 3.5s - 6.5s
+        }, 500);
+      }, 2000); // Live increment every 2 seconds
     }
   }
 });
