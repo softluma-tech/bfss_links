@@ -33,5 +33,48 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.transform = 'translateY(0)';
     }, 100);
   });
+
+  /* -------------------------------------------------------------------------
+     3. LIVE INCREMENTING TRADER COUNTER ANIMATION
+     ------------------------------------------------------------------------- */
+  const traderCountEl = document.getElementById('traderCount');
+  if (traderCountEl) {
+    let currentCount = 14850;
+    const targetCount = 15482;
+    const duration = 1400; // ms
+    const startTime = performance.now();
+
+    function updateCount(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic progress
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+      const val = Math.floor(currentCount + (targetCount - currentCount) * easeProgress);
+      traderCountEl.textContent = val.toLocaleString();
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCount);
+      } else {
+        currentCount = targetCount;
+        startLiveFluctuation();
+      }
+    }
+
+    requestAnimationFrame(updateCount);
+
+    function startLiveFluctuation() {
+      setInterval(() => {
+        // Randomly increment by +1 to +3 traders coming online
+        const increment = Math.floor(Math.random() * 3) + 1;
+        currentCount += increment;
+        traderCountEl.textContent = currentCount.toLocaleString();
+
+        traderCountEl.classList.add('count-up-flash');
+        setTimeout(() => {
+          traderCountEl.classList.remove('count-up-flash');
+        }, 600);
+      }, Math.floor(Math.random() * 3000) + 3500); // every 3.5s - 6.5s
+    }
+  }
 });
 
