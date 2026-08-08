@@ -1,0 +1,819 @@
+/* ==========================================================================
+   BFSS TRADING COMMUNITY - APPLE LIQUID GLASS PURPLE THEME
+   Font: TacticSans-BlkIt (with high-impact fallbacks)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,700;1,800;1,900&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+/* Custom Font Definition */
+@font-face {
+  font-family: 'TacticSans-BlkIt';
+  src: url('fonts/TacticSans-BlkIt.woff2') format('woff2'),
+       url('fonts/TacticSans-BlkIt.ttf') format('truetype'),
+       url('fonts/TacticSans-BlkIt.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* Color Palette - Liquid Purple Theme */
+  --bg-dark: #07040d;
+  --bg-gradient: radial-gradient(circle at 50% 0%, #1e0938 0%, #0d061a 50%, #050209 100%);
+  
+  --purple-core: #9333ea;
+  --purple-bright: #a855f7;
+  --purple-neon: #c084fc;
+  --purple-deep: #4c1d95;
+  --purple-ambient: rgba(168, 85, 247, 0.35);
+  
+  --accent-cyan: #38bdf8;
+  --accent-gold: #fbbf24;
+  --accent-green: #22c55e;
+  
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.75);
+  --text-muted: rgba(255, 255, 255, 0.45);
+  
+  /* Apple Liquid Glass Tokens */
+  --glass-surface: rgba(25, 14, 43, 0.42);
+  --glass-surface-hover: rgba(38, 20, 64, 0.58);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-border-top: rgba(255, 255, 255, 0.35);
+  --glass-border-glow: rgba(168, 85, 247, 0.6);
+  --glass-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+  --glass-shadow-hover: 0 25px 60px rgba(147, 51, 234, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  
+  /* Typography */
+  --font-heading: 'TacticSans-BlkIt', 'Montserrat', 'Outfit', sans-serif;
+  --font-body: 'Outfit', sans-serif;
+  
+  /* Transitions */
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-liquid: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Reset & Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ambient Liquid Background */
+.background-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: var(--bg-gradient);
+  overflow: hidden;
+}
+
+.liquid-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.65;
+  pointer-events: none;
+  animation: liquidFloat 18s ease-in-out infinite alternate;
+}
+
+.liquid-orb-1 {
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, #7e22ce 0%, #3b0764 70%, transparent 100%);
+  animation-duration: 14s;
+}
+
+.liquid-orb-2 {
+  bottom: 10%;
+  left: -10%;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, #a855f7 0%, #4c1d95 70%, transparent 100%);
+  animation-duration: 20s;
+  animation-delay: -5s;
+}
+
+.liquid-orb-3 {
+  top: 35%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, #6366f1 0%, #2e1065 70%, transparent 100%);
+  animation-duration: 16s;
+  animation-delay: -8s;
+}
+
+@keyframes liquidFloat {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(30px, 40px) scale(1.1) rotate(180deg);
+  }
+  100% {
+    transform: translate(-30px, -20px) scale(0.95) rotate(360deg);
+  }
+}
+
+/* Noise overlay for glass realism */
+.liquid-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Page Container */
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 20px 60px 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.main-card-container {
+  width: 100%;
+  max-width: 580px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* ==========================================================================
+   HEADER SECTION - LOGO & TITLES
+   ========================================================================== */
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+/* Logo Ring Container with Apple Liquid Glass Specular Shine */
+.logo-wrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 20px;
+}
+
+.logo-glass-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(168, 85, 247, 0.3) 50%, rgba(255, 255, 255, 0.1) 100%);
+  padding: 2px;
+  box-shadow: 0 0 30px var(--purple-ambient), inset 0 0 15px rgba(255, 255, 255, 0.3);
+  animation: logoPulse 4s ease-in-out infinite alternate;
+}
+
+.logo-glass-ring::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+@keyframes logoPulse {
+  0% {
+    box-shadow: 0 0 25px rgba(168, 85, 247, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.2);
+    transform: scale(1);
+  }
+  100% {
+    box-shadow: 0 0 45px rgba(192, 132, 252, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.5);
+    transform: scale(1.03);
+  }
+}
+
+.channel-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid rgba(147, 51, 234, 0.5);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 2;
+  background: var(--bg-dark);
+}
+
+/* Verified Badge Overlay */
+.verified-badge {
+  position: absolute;
+  bottom: 0;
+  right: 2px;
+  z-index: 3;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: 3px solid #0d061a;
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.5);
+}
+
+.verified-badge svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+/* Main Title - TacticSans-BlkIt Styling */
+.community-title {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #ffffff 20%, #e9d5ff 50%, #c084fc 80%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+  position: relative;
+  display: inline-block;
+  transform: skewX(-4deg); /* Extra italic slant for TacticSans visual aesthetic */
+}
+
+.community-tagline {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  margin-bottom: 14px;
+}
+
+/* Status Pill */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 30px;
+  background: rgba(147, 51, 234, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #e9d5ff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-green);
+  animation: greenPulse 2s infinite;
+}
+
+@keyframes greenPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+/* ==========================================================================
+   LINK CARDS SECTION - APPLE LIQUID GLASS CARDS
+   ========================================================================== */
+
+.links-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Base Glass Card */
+.glass-link-card {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: var(--text-primary);
+  
+  /* Apple Liquid Glass Effect */
+  background: var(--glass-surface);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  
+  border: 1px solid var(--glass-border);
+  border-top: 1px solid var(--glass-border-top);
+  box-shadow: var(--glass-shadow);
+  
+  overflow: hidden;
+  transition: transform 0.4s var(--ease-spring), 
+              background 0.3s ease, 
+              border-color 0.3s ease, 
+              box-shadow 0.4s ease;
+  
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Mouse Specular Glare Effect */
+.glass-link-card::before {
+  content: '';
+  position: absolute;
+  top: var(--mouse-y, 0%);
+  left: var(--mouse-x, 0%);
+  width: 300px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.25) 0%, rgba(168, 85, 247, 0.15) 35%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Liquid Top Highlight Sheen */
+.glass-link-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%);
+  border-radius: 20px 20px 0 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Hover States */
+.glass-link-card:hover {
+  transform: translateY(-4px) scale(1.015);
+  background: var(--glass-surface-hover);
+  border-color: var(--glass-border-glow);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+.glass-link-card:hover::before {
+  opacity: 1;
+}
+
+.glass-link-card:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+/* Left Content Wrapper */
+.card-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 2;
+  position: relative;
+}
+
+/* Animatable Icon Frame */
+.icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3), 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s var(--ease-spring), background 0.3s ease, box-shadow 0.3s ease;
+  flex-shrink: 0;
+}
+
+.icon-box svg {
+  width: 26px;
+  height: 26px;
+  transition: transform 0.4s var(--ease-spring), filter 0.3s ease, fill 0.3s ease;
+}
+
+/* Card Text Styling */
+.card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: left;
+}
+
+.card-title {
+  font-family: var(--font-body);
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Right Side Chevron & Badge */
+.card-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 2;
+  position: relative;
+}
+
+.arrow-icon {
+  width: 20px;
+  height: 20px;
+  color: rgba(255, 255, 255, 0.4);
+  transition: transform 0.3s var(--ease-spring), color 0.3s ease;
+}
+
+.glass-link-card:hover .arrow-icon {
+  transform: translateX(4px);
+  color: var(--purple-neon);
+}
+
+/* Special Badge tag inside cards */
+.card-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, var(--purple-core) 0%, #6366f1 100%);
+  color: white;
+  box-shadow: 0 4px 10px rgba(147, 51, 234, 0.4);
+}
+
+.card-badge.gold {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #111;
+  box-shadow: 0 4px 10px rgba(245, 158, 11, 0.4);
+}
+
+.card-badge.green {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
+}
+
+/* ==========================================================================
+   INDIVIDUAL CARD THEMES & CONTINUOUS ANIMATABLE ICONS
+   ========================================================================== */
+
+/* 1. Telegram Card */
+.card-telegram .icon-box {
+  background: linear-gradient(135deg, rgba(42, 171, 238, 0.25) 0%, rgba(34, 158, 217, 0.1) 100%);
+  border-color: rgba(42, 171, 238, 0.4);
+  color: #2aabee;
+}
+
+.card-telegram .icon-box svg {
+  animation: planeFlyContinuous 2.4s ease-in-out infinite alternate;
+}
+
+.glass-link-card.card-telegram:hover .icon-box {
+  background: #2aabee;
+  color: white;
+  box-shadow: 0 0 22px rgba(42, 171, 238, 0.7);
+  transform: rotate(-8deg) scale(1.1);
+}
+
+.glass-link-card.card-telegram:hover .icon-box svg {
+  animation-duration: 1.2s;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+}
+
+@keyframes planeFlyContinuous {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate(4px, -4px) rotate(-6deg) scale(1.1); }
+  100% { transform: translate(-2px, 2px) rotate(4deg) scale(0.95); }
+}
+
+/* 2. YouTube Card */
+.card-youtube .icon-box {
+  background: linear-gradient(135deg, rgba(255, 0, 0, 0.25) 0%, rgba(200, 0, 0, 0.1) 100%);
+  border-color: rgba(255, 0, 0, 0.4);
+  color: #ff3333;
+}
+
+.card-youtube .icon-box svg {
+  animation: youtubePulseContinuous 1.8s ease-in-out infinite alternate;
+}
+
+.glass-link-card.card-youtube:hover .icon-box {
+  background: #ff0000;
+  color: white;
+  box-shadow: 0 0 22px rgba(255, 0, 0, 0.7);
+  transform: scale(1.1);
+}
+
+.glass-link-card.card-youtube:hover .icon-box svg {
+  animation-duration: 0.9s;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9));
+}
+
+@keyframes youtubePulseContinuous {
+  0% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(255, 0, 0, 0.3)); }
+  100% { transform: scale(1.18); filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.8)); }
+}
+
+/* 3. Instagram Card */
+.card-instagram .icon-box {
+  background: linear-gradient(135deg, rgba(225, 48, 108, 0.25) 0%, rgba(253, 29, 29, 0.1) 100%);
+  border-color: rgba(225, 48, 108, 0.4);
+  color: #e1306c;
+}
+
+.card-instagram .icon-box svg {
+  animation: instaSpinContinuous 5s ease-in-out infinite;
+}
+
+.glass-link-card.card-instagram:hover .icon-box {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: white;
+  box-shadow: 0 0 22px rgba(225, 48, 108, 0.7);
+  transform: rotate(8deg) scale(1.1);
+}
+
+.glass-link-card.card-instagram:hover .icon-box svg {
+  animation-duration: 2s;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+}
+
+@keyframes instaSpinContinuous {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(14deg) scale(1.12); }
+  50% { transform: rotate(0deg) scale(1); }
+  75% { transform: rotate(-14deg) scale(1.12); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+/* 4. Free VIP Card */
+.card-vip .icon-box {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.25) 0%, rgba(217, 119, 6, 0.1) 100%);
+  border-color: rgba(251, 191, 36, 0.4);
+  color: #fbbf24;
+}
+
+.card-vip .icon-box svg {
+  animation: crownShimmerContinuous 2s ease-in-out infinite alternate;
+}
+
+.glass-link-card.card-vip:hover .icon-box {
+  background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+  color: #111;
+  box-shadow: 0 0 25px rgba(251, 191, 36, 0.8);
+  transform: translateY(-3px) scale(1.1);
+}
+
+.glass-link-card.card-vip:hover .icon-box svg {
+  animation-duration: 1s;
+}
+
+@keyframes crownShimmerContinuous {
+  0% { transform: translateY(0) rotate(-6deg) scale(1); filter: drop-shadow(0 0 2px rgba(251, 191, 36, 0.3)); }
+  100% { transform: translateY(-3px) rotate(6deg) scale(1.16); filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.8)); }
+}
+
+/* 5. Open Quotex Account Card */
+.card-quotex .icon-box {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(16, 185, 129, 0.1) 100%);
+  border-color: rgba(34, 197, 94, 0.4);
+  color: #22c55e;
+}
+
+.card-quotex .icon-box svg {
+  animation: chartSurgeContinuous 1.6s ease-in-out infinite alternate;
+}
+
+.glass-link-card.card-quotex:hover .icon-box {
+  background: linear-gradient(135deg, #22c55e 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 0 24px rgba(34, 197, 94, 0.7);
+  transform: scale(1.1);
+}
+
+.glass-link-card.card-quotex:hover .icon-box svg {
+  animation-duration: 0.8s;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9));
+}
+
+@keyframes chartSurgeContinuous {
+  0% { transform: translateY(2px) scale(0.98); }
+  100% { transform: translateY(-4px) scale(1.15); filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.8)); }
+}
+
+/* 6. Contact Admin Card */
+.card-admin .icon-box {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.25) 0%, rgba(147, 51, 234, 0.1) 100%);
+  border-color: rgba(168, 85, 247, 0.4);
+  color: #c084fc;
+}
+
+.card-admin .icon-box svg {
+  animation: shieldPulseContinuous 2.2s ease-in-out infinite alternate;
+}
+
+.glass-link-card.card-admin:hover .icon-box {
+  background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  color: white;
+  box-shadow: 0 0 24px rgba(168, 85, 247, 0.7);
+  transform: scale(1.1);
+}
+
+.glass-link-card.card-admin:hover .icon-box svg {
+  animation-duration: 1.1s;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9));
+}
+
+@keyframes shieldPulseContinuous {
+  0% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(168, 85, 247, 0.3)); }
+  100% { transform: scale(1.16); filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.8)); }
+}
+
+/* Copy Action Button inside Admin Card */
+.copy-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-secondary);
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  background: var(--purple-bright);
+  color: white;
+  border-color: var(--purple-neon);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+.copy-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* ==========================================================================
+   FOOTER & TOAST NOTIFICATION
+   ========================================================================== */
+
+.footer-section {
+  margin-top: 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.disclaimer-box {
+  max-width: 480px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: rgba(15, 8, 28, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.copyright-text {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.copyright-text span {
+  color: var(--purple-neon);
+  font-weight: 700;
+}
+
+/* Floating Toast Notification */
+.toast-notification {
+  position: fixed;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #1e0938 0%, #4c1d95 100%);
+  color: white;
+  border: 1px solid var(--purple-neon);
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(168, 85, 247, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+  opacity: 0;
+  transition: all 0.4s var(--ease-spring);
+  pointer-events: none;
+}
+
+.toast-notification.show {
+  bottom: 30px;
+  opacity: 1;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 480px) {
+  .page-wrapper {
+    padding: 30px 14px 40px 14px;
+  }
+  
+  .community-title {
+    font-size: 1.75rem;
+  }
+  
+  .logo-wrapper {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .glass-link-card {
+    padding: 14px 16px;
+  }
+  
+  .icon-box {
+    width: 46px;
+    height: 46px;
+  }
+  
+  .icon-box svg {
+    width: 22px;
+    height: 22px;
+  }
+  
+  .card-title {
+    font-size: 0.98rem;
+  }
+  
+  .card-subtitle {
+    font-size: 0.76rem;
+  }
+}
